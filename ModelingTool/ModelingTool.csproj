@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2F7001A9-1819-4037-974A-93C8D25C1E4C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ModelingTool</RootNamespace>
+    <AssemblyName>ModelingTool</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="RevitAPI">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2016\RevitAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2016\RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Application\Application.cs" />
+    <Compile Include="Beam\BeamUnion\BeamUnionData.cs" />
+    <Compile Include="Beam\BeamUnion\Command.cs" />
+    <Compile Include="Beam\ChangeJoinOrder\Command.cs" />
+    <Compile Include="Beam\DisjointEnd\DisJointAction.cs" />
+    <Compile Include="Beam\DisjointEnd\DisjointEndForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Beam\DisjointEnd\DisjointEndForm.Designer.cs">
+      <DependentUpon>DisjointEndForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Beam\QuickCreation\Command.cs" />
+    <Compile Include="Beam\QuickCreation\DuplicateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Beam\QuickCreation\DuplicateForm.Designer.cs">
+      <DependentUpon>DuplicateForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Beam\QuickCreation\QuickCreationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Beam\QuickCreation\QuickCreationForm.Designer.cs">
+      <DependentUpon>QuickCreationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Beam\DisjointEnd\Command.cs" />
+    <Compile Include="Filter\Document\FilteredElementCollectorEx.cs" />
+    <Compile Include="Filter\Selection\BeamSelectionFilter.cs" />
+    <Compile Include="Filter\Selection\GridSelectionFilter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\FamilyUtil.cs" />
+    <Compile Include="Util\GlobalUtil.cs" />
+    <Compile Include="Util\JoinManager.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Beam\DisjointEnd\DisjointEndForm.resx">
+      <DependentUpon>DisjointEndForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Beam\QuickCreation\DuplicateForm.resx">
+      <DependentUpon>DuplicateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Beam\QuickCreation\QuickCreationForm.resx">
+      <DependentUpon>QuickCreationForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ModelingTool.addin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>ModelingTool</Name>
+    <Assembly>ModelingTool.dll</Assembly>
+    <AddInId>B3AE4913-136A-4145-84E5-2F06CFDBEE06</AddInId>
+    <FullClassName>ModelingTool.Application.Application</FullClassName>
+    <VendorId>ADSK</VendorId>
+  </AddIn>
+</RevitAddIns>
