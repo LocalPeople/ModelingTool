@@ -27,7 +27,7 @@ namespace ModelingTool.Beam.QuickCreation
             form.InitLevelList(levelCollector.ToElements());
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
             {
-                return Result.Cancelled;
+                return Result.Succeeded;
             }
 
             while (true)
@@ -49,8 +49,8 @@ namespace ModelingTool.Beam.QuickCreation
                     else if (form.ByPoint)
                     {
                         XYZ[] endPoints = new XYZ[2];
-                        endPoints[0] = uiDoc.Selection.PickPoint(ObjectSnapTypes.Endpoints | ObjectSnapTypes.Intersections | ObjectSnapTypes.Midpoints, "请点选梁起点");
-                        endPoints[1] = uiDoc.Selection.PickPoint(ObjectSnapTypes.Endpoints | ObjectSnapTypes.Intersections | ObjectSnapTypes.Midpoints, "请点选梁终点");
+                        endPoints[0] = uiDoc.Selection.PickPoint((ObjectSnapTypes)1023, "请点选梁起点");
+                        endPoints[1] = uiDoc.Selection.PickPoint((ObjectSnapTypes)1023, "请点选梁终点");
 
                         using (Transaction trans = new Transaction(doc, "布置梁"))
                         {
@@ -66,10 +66,6 @@ namespace ModelingTool.Beam.QuickCreation
                     {
                         break;
                     }
-                }
-                catch
-                {
-                    throw;
                 }
             }
 

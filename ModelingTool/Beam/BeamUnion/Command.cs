@@ -49,10 +49,6 @@ namespace ModelingTool.Beam.BeamUnion
                 {
                     break;
                 }
-                catch
-                {
-                    throw;
-                }
             }
 
             return Result.Succeeded;

@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.DB;
+using ModelingTool.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace ModelingTool.Filter.Document
                     if (!result.ContainsKey(familySymbol.Family.Name))
                     {
                         FamilySymbol[] familySymbolSet = familySymbol.Family.GetFamilySymbolIds().Select(id => doc.GetElement(id) as FamilySymbol).ToArray();
+                        Array.Sort(familySymbolSet, SymbolNameComparer.Single);
                         result.Add(familySymbol.Family.Name, familySymbolSet);
                     }
                 }

@@ -78,10 +78,6 @@ namespace ModelingTool.Beam.DisjointEnd
                 {
                     break;
                 }
-                catch
-                {
-                    throw;
-                }
             }
 
             return Result.Succeeded;

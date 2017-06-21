@@ -19,14 +19,24 @@ namespace ModelingTool.Beam.ChangeJoinOrder
             UIDocument uiDoc = commandData.Application.ActiveUIDocument;
             Document doc = uiDoc.Document;
 
-            IList<Reference> refers = uiDoc.Selection.PickObjects(ObjectType.Element, BeamSelectionFilter.Single, "请选择需要处理的梁");
-            Queue<ElementId> idsQueue = new Queue<ElementId>(refers.Select(refer => refer.ElementId));
-
-            using (Transaction trans = new Transaction(doc, "主梁切次梁"))
+            try
             {
-                trans.Start();
-                CheckChangeJoinOrder(doc, idsQueue);
-                trans.Commit();
+                IList<Reference> refers = uiDoc.Selection.PickObjects(ObjectType.Element, BeamSelectionFilter.Single, "请选择需要处理的梁");
+                Queue<ElementId> idsQueue = new Queue<ElementId>(refers.Select(refer => refer.ElementId));
+
+                using (Transaction trans = new Transaction(doc, "主梁切次梁"))
+                {
+                    trans.Start();
+                    CheckChangeJoinOrder(doc, idsQueue);
+                    trans.Commit();
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                TaskDialog.Show("Revit", ex.Message);
+            }
+            catch (Autodesk.Revit.Exceptions.OperationCanceledException)
+            {
             }
 
             return Result.Succeeded;

@@ -35,14 +35,19 @@ namespace ModelingTool.Beam.QuickCreation
         {
             foreach (var pair in map)
             {
-                TreeNode[] familySymbolNodeSet = pair.Value.Select(symbol =>
-                {
-                    TreeNode node = new TreeNode(symbol.Name);
-                    node.Tag = symbol;
-                    return node;
-                }).ToArray();
-                treeView1.Nodes.Add(new TreeNode(pair.Key, familySymbolNodeSet));
+                AddFamilySymbolMap(pair);
             }
+        }
+
+        public void AddFamilySymbolMap(KeyValuePair<string, FamilySymbol[]> pair)
+        {
+            TreeNode[] familySymbolNodeSet = pair.Value.Select(symbol =>
+            {
+                TreeNode node = new TreeNode(symbol.Name);
+                node.Tag = symbol;
+                return node;
+            }).ToArray();
+            treeView1.Nodes.Add(new TreeNode(pair.Key, familySymbolNodeSet));
         }
 
         public void InitLevelList(IList<Element> levelList)
@@ -130,10 +135,12 @@ namespace ModelingTool.Beam.QuickCreation
             if (familySymbolResult != null)
             {
                 ToolStripMenuItem2.Enabled = true;
+                ToolStripMenuItem3.Enabled = true;
             }
             else
             {
                 ToolStripMenuItem2.Enabled = false;
+                ToolStripMenuItem3.Enabled = false;
             }
         }
 
@@ -143,7 +150,7 @@ namespace ModelingTool.Beam.QuickCreation
             {
                 dialog.InitialDirectory = @"C:\ProgramData\Autodesk\RVT 2016\Libraries\China";
                 dialog.Title = "载入本地族……";
-                dialog.Filter = @"rfa文件|*.rfa";
+                dialog.Filter = @"rfa文件 (*.rfa)|*.rfa";
                 switch (dialog.ShowDialog(this))
                 {
                     case DialogResult.OK:
@@ -153,14 +160,7 @@ namespace ModelingTool.Beam.QuickCreation
                             Family family;
                             if (doc.LoadFamily(dialog.FileName, out family))
                             {
-                                TreeNode[] familySymbolNodeSet = family.GetFamilySymbolIds().Select(id =>
-                                {
-                                    FamilySymbol familySymbol = doc.GetElement(id) as FamilySymbol;
-                                    TreeNode node = new TreeNode(familySymbol.Name);
-                                    node.Tag = familySymbol;
-                                    return node;
-                                }).ToArray();
-                                treeView1.Nodes.Add(new TreeNode(family.Name, familySymbolNodeSet));
+                                AddFamilySymbolMap(family.GetFamilySymbolPair(doc));
                             }
                             trans.Commit();
                         }
@@ -186,11 +186,29 @@ namespace ModelingTool.Beam.QuickCreation
                         FamilySymbol newSymbol = familySymbolResult.Duplicate(duplicateForm.SymbolName, duplicateForm.GeometryMap);
                         TreeNode newNode = new TreeNode(newSymbol.Name);
                         newNode.Tag = newSymbol;
-                        TreeNode child = treeView1.SelectedNode;
-                        child.Parent.Nodes.Insert(child.Index + 1, newNode);
+                        TreeNode current = treeView1.SelectedNode;
+                        current.Parent.Nodes.Insert(current.Index + 1, newNode);
+                        treeView1.SelectedNode = newNode;
                         trans.Commit();
                     }
                     break;
+            }
+        }
+
+        private void ToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            using (Transaction trans = new Transaction(doc, "删除族类型"))
+            {
+                trans.Start();
+                if (familySymbolResult.Delete(doc, this))
+                {
+                    TreeNode current = treeView1.SelectedNode;
+                    TreeNode parent = current.Parent;
+                    current.Remove();
+                    if (parent.Nodes.Count == 0)
+                        parent.Remove();
+                }
+                trans.Commit();
             }
         }
     }

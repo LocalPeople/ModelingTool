@@ -48,19 +48,23 @@ namespace ModelingTool.Util
             if (!(beam is FamilyInstance)) return;
             XYZ beamDirection = ((beam.Location as LocationCurve).Curve as Line).Direction;
             Solid beamSolid = SolidSearch(beam.get_Geometry(new Options()));
+            double volumn = double.MinValue;
             foreach (Face face in beamSolid.Faces)
             {
                 XYZ faceDirection = face.ComputeNormal(new UV());
-                if (faceDirection.IsAlmostEqualTo(beamDirection) || faceDirection.IsAlmostEqualTo(-beamDirection))
+                if (faceDirection.IsAlmostEqualTo(beamDirection, false) || faceDirection.IsAlmostEqualTo(-beamDirection, false))
                 {
-                    BoundingBoxUV uvBox = face.GetBoundingBox();
-                    XYZ min = face.Evaluate(uvBox.Min);
-                    XYZ max = face.Evaluate(uvBox.Max);
-                    // 勾股定理
-                    height = Math.Abs(max.Z - min.Z);
-                    double third = max.DistanceTo(min);
-                    width = Math.Sqrt(third * third - height * height);
-                    break;
+                    if (volumn < face.Area)
+                    {
+                        BoundingBoxUV uvBox = face.GetBoundingBox();
+                        XYZ min = face.Evaluate(uvBox.Min);
+                        XYZ max = face.Evaluate(uvBox.Max);
+                        // 勾股定理
+                        height = Math.Abs(max.Z - min.Z);
+                        double third = max.DistanceTo(min);
+                        width = Math.Sqrt(third * third - height * height);
+                        volumn = face.Area;
+                    }
                 }
             }
         }
@@ -122,6 +126,16 @@ namespace ModelingTool.Util
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// 修复XYZ.IsAlmostEqualTo误差值不准确的拓展方法
+        /// </summary>
+        public static bool IsAlmostEqualTo(this XYZ self, XYZ other, bool ignoreZ)
+        {
+            return Math.Abs(self.X - other.X) < 0.01
+                && Math.Abs(self.Y - other.Y) < 0.01
+                && (ignoreZ || Math.Abs(self.Z - other.Z) < 0.01);
         }
     }
 }

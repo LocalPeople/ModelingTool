@@ -1,5 +1,6 @@
 ﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using ModelingTool.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +15,15 @@ namespace ModelingTool.Util
         public static Dictionary<string, double> GetSymbolGeometry(FamilySymbol symbol)
         {
             Dictionary<string, double> result = new Dictionary<string, double>();
-            foreach (Parameter param in (from Parameter p in symbol.Parameters where !p.IsReadOnly && p.Definition.ParameterGroup == BuiltInParameterGroup.PG_GEOMETRY select p))
+            foreach (Parameter param in (from Parameter p in symbol.Parameters where !p.IsReadOnly && p.Definition.ParameterGroup == BuiltInParameterGroup.PG_GEOMETRY orderby p.Definition.Name select p))
             {
                 switch (param.StorageType)
                 {
                     case StorageType.Integer:
-                        result.Add(param.Definition.Name, param.AsInteger());
+                        result.Add(param.Definition.Name, param.AsInteger() * 304.8);
                         break;
                     case StorageType.Double:
-                        result.Add(param.Definition.Name, param.AsDouble());
+                        result.Add(param.Definition.Name, param.AsDouble() * 304.8);
                         break;
                 }
             }
@@ -38,10 +39,10 @@ namespace ModelingTool.Util
                 switch (param.StorageType)
                 {
                     case StorageType.Integer:
-                        param.Set((int)Math.Round(pair.Value));
+                        param.Set((int)(Math.Round(pair.Value / 304.8)));
                         break;
                     case StorageType.Double:
-                        param.Set(pair.Value);
+                        param.Set(pair.Value / 304.8);
                         break;
                 }
             }
@@ -59,24 +60,19 @@ namespace ModelingTool.Util
                 switch (MessageBox.Show(owner, text, "将要删除类型……", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1))
                 {
                     case DialogResult.OK:
-                        Document familyDoc = doc.EditFamily(symbol.Family);
-                        using (Transaction familyTrans = new Transaction(familyDoc, "删除族类型"))
-                        {
-                            familyTrans.Start();
-                            FamilyManager familyMgr = familyDoc.FamilyManager;
-                            familyMgr.CurrentType = familyMgr.Types.Cast<FamilyType>().FirstOrDefault(type => type.Name == symbol.Name);
-                            if (familyMgr.CurrentType != null)
-                            {
-                                familyMgr.DeleteCurrentType();
-                                familyDoc.LoadFamily(doc, UIDocument.GetRevitUIFamilyLoadOptions());
-                                result = true;
-                            }
-                            familyTrans.Commit();
-                        }
+                        doc.Delete(symbol.Id);
+                        result = true;
                         break;
                 }
             }
             return result;
+        }
+
+        public static KeyValuePair<string, FamilySymbol[]> GetFamilySymbolPair(this Family family, Document doc)
+        {
+            FamilySymbol[] familySymbolSet = family.GetFamilySymbolIds().Select(id => doc.GetElement(id) as FamilySymbol).ToArray();
+            Array.Sort(familySymbolSet, SymbolNameComparer.Single);
+            return new KeyValuePair<string, FamilySymbol[]>(family.Name, familySymbolSet);
         }
     }
 }

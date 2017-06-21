@@ -79,6 +79,7 @@
     <Compile Include="Filter\Document\FilteredElementCollectorEx.cs" />
     <Compile Include="Filter\Selection\BeamSelectionFilter.cs" />
     <Compile Include="Filter\Selection\GridSelectionFilter.cs" />
+    <Compile Include="Interface\SymbolNameComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\FamilyUtil.cs" />
     <Compile Include="Util\GlobalUtil.cs" />
