@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModelingTool.Beam.DisjointEnd
+namespace ModelingTool.Beam.JoinEnd
 {
-    enum DisjointAction
+    enum JoinAction
     {
         Start = 1,
         End = 2,

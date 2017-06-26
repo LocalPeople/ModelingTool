@@ -13,6 +13,7 @@ namespace ModelingTool.Beam.BeamUnion
         public FamilySymbol FamilySymbol { get; set; }
         public Line First { get; set; }
         public Level Level { get; set; }
+        public ElementId MaterialId { get; set; }
         public string Message { get; set; }
         public Line Second { get; set; }
         public Dictionary<Guid, object> SharedParameters { get; set; }

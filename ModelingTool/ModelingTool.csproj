@@ -55,13 +55,14 @@
     <Compile Include="Beam\BeamUnion\BeamUnionData.cs" />
     <Compile Include="Beam\BeamUnion\Command.cs" />
     <Compile Include="Beam\ChangeJoinOrder\Command.cs" />
-    <Compile Include="Beam\DisjointEnd\DisJointAction.cs" />
-    <Compile Include="Beam\DisjointEnd\DisjointEndForm.cs">
+    <Compile Include="Beam\JoinEnd\DisJointAction.cs" />
+    <Compile Include="Beam\JoinEnd\JoinEndForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Beam\DisjointEnd\DisjointEndForm.Designer.cs">
-      <DependentUpon>DisjointEndForm.cs</DependentUpon>
+    <Compile Include="Beam\JoinEnd\JoinEndForm.Designer.cs">
+      <DependentUpon>JoinEndForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Beam\LengthAdjustment\Command.cs" />
     <Compile Include="Beam\QuickCreation\Command.cs" />
     <Compile Include="Beam\QuickCreation\DuplicateForm.cs">
       <SubType>Form</SubType>
@@ -75,7 +76,7 @@
     <Compile Include="Beam\QuickCreation\QuickCreationForm.Designer.cs">
       <DependentUpon>QuickCreationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Beam\DisjointEnd\Command.cs" />
+    <Compile Include="Beam\JoinEnd\Command.cs" />
     <Compile Include="Filter\Document\FilteredElementCollectorEx.cs" />
     <Compile Include="Filter\Selection\BeamSelectionFilter.cs" />
     <Compile Include="Filter\Selection\GridSelectionFilter.cs" />
@@ -87,8 +88,8 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Beam\DisjointEnd\DisjointEndForm.resx">
-      <DependentUpon>DisjointEndForm.cs</DependentUpon>
+    <EmbeddedResource Include="Beam\JoinEnd\JoinEndForm.resx">
+      <DependentUpon>JoinEndForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Beam\QuickCreation\DuplicateForm.resx">
       <DependentUpon>DuplicateForm.cs</DependentUpon>

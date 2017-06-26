@@ -64,7 +64,7 @@
             this.ToolStripMenuItem2,
             this.ToolStripMenuItem3});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(161, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(161, 70);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // ToolStripMenuItem1
@@ -129,17 +129,17 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 30);
             this.button2.TabIndex = 4;
-            this.button2.Text = "轴网布置";
+            this.button2.Text = "轴线建梁";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(159, 406);
+            this.button1.Location = new System.Drawing.Point(107, 406);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 30);
+            this.button1.Size = new System.Drawing.Size(125, 30);
             this.button1.TabIndex = 3;
-            this.button1.Text = "点选布置";
+            this.button1.Text = "捕捉定位点建梁";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 

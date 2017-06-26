@@ -148,7 +148,7 @@ namespace ModelingTool.Beam.QuickCreation
         {
             using (OpenFileDialog dialog = new OpenFileDialog() { Multiselect = false, CheckFileExists = true, CheckPathExists = true })
             {
-                dialog.InitialDirectory = @"C:\ProgramData\Autodesk\RVT 2016\Libraries\China";
+                dialog.InitialDirectory = @"C:\ProgramData\Autodesk\RVT 2016\Libraries\China\结构\框架";
                 dialog.Title = "载入本地族……";
                 dialog.Filter = @"rfa文件 (*.rfa)|*.rfa";
                 switch (dialog.ShowDialog(this))

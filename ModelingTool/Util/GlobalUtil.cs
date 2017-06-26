@@ -137,5 +137,10 @@ namespace ModelingTool.Util
                 && Math.Abs(self.Y - other.Y) < 0.01
                 && (ignoreZ || Math.Abs(self.Z - other.Z) < 0.01);
         }
+
+        public static Line ToLine(this FamilyInstance beam)
+        {
+            return (beam.Location as LocationCurve).Curve as Line;
+        }
     }
 }

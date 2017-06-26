@@ -1,6 +1,6 @@
-﻿namespace ModelingTool.Beam.DisjointEnd
+﻿namespace ModelingTool.Beam.JoinEnd
 {
-    partial class DisjointEndForm
+    partial class JoinEndForm
     {
         /// <summary>
         /// Required designer variable.
@@ -83,7 +83,7 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // DisjointEndForm
+            // JoinEndForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -95,9 +95,9 @@
             this.MaximumSize = new System.Drawing.Size(324, 141);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(324, 141);
-            this.Name = "DisjointEndForm";
+            this.Name = "JoinEndForm";
             this.ShowIcon = false;
-            this.Text = "不允许梁连接";
+            this.Text = "处理梁连接";
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 

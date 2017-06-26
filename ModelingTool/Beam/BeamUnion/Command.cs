@@ -77,6 +77,7 @@ namespace ModelingTool.Beam.BeamUnion
             }
 
             FamilyInstance newBeam = doc.Create.NewFamilyInstance(Line.CreateBound(beamStart, beamEnd), data.FamilySymbol, data.Level, StructuralType.Beam);
+            newBeam.get_Parameter(BuiltInParameter.STRUCTURAL_MATERIAL_PARAM).Set(data.MaterialId);
             GlobalUtil.SetSharedParameters(newBeam, data.SharedParameters);
             IList<Element> inclusion = GlobalUtil.IncludeTest(doc, newBeam);
             JoinManager.OfBeam(doc, newBeam, inclusion);
@@ -116,6 +117,7 @@ namespace ModelingTool.Beam.BeamUnion
                     data.Second = centerLine2;
                     data.FamilySymbol = beam1.Symbol;
                     data.Level = doc.GetElement(beam1.get_Parameter(BuiltInParameter.INSTANCE_REFERENCE_LEVEL_PARAM).AsElementId()) as Level;
+                    data.MaterialId = beam1.get_Parameter(BuiltInParameter.STRUCTURAL_MATERIAL_PARAM).AsElementId();
                     data.SharedParameters = GlobalUtil.GetSharedParameters(doc, beam1);
                 }
                 else
