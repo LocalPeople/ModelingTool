@@ -25,6 +25,10 @@ namespace ModelingTool.Beam.QuickCreation
             QuickCreationForm form = new QuickCreationForm(doc);
             form.InitFamilySymbolMap(beamFamilySymbolCollector.GetFamilySymbolMap(doc));
             form.InitLevelList(levelCollector.ToElements());
+            if (commandData.View.GenLevel != null)
+            {
+                form.SetLevelUnableUserSet(commandData.View.GenLevel);
+            }
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
             {
                 return Result.Succeeded;

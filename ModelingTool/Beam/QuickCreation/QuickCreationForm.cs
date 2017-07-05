@@ -211,5 +211,12 @@ namespace ModelingTool.Beam.QuickCreation
                 trans.Commit();
             }
         }
+
+        public void SetLevelUnableUserSet(Level level)
+        {
+            comboBox1.SelectedItem = level.Name;
+            comboBox1.Enabled = false;
+            levelResult = level;
+        }
     }
 }
