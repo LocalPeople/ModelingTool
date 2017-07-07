@@ -55,6 +55,10 @@
     <Compile Include="Beam\BeamUnion\BeamUnionData.cs" />
     <Compile Include="Beam\BeamUnion\Command.cs" />
     <Compile Include="Beam\ChangeJoinOrder\Command.cs" />
+    <Compile Include="Beam\CutBeam\Command.cs" />
+    <Compile Include="Beam\CutBeam\CutBeamData.cs" />
+    <Compile Include="Beam\CutBeam\CutOperationMap.cs" />
+    <Compile Include="Beam\CutBeam\PointGetter.cs" />
     <Compile Include="Beam\JoinEnd\DisJointAction.cs" />
     <Compile Include="Beam\JoinEnd\JoinEndForm.cs">
       <SubType>Form</SubType>
@@ -79,12 +83,16 @@
     <Compile Include="Beam\JoinEnd\Command.cs" />
     <Compile Include="Filter\Document\FilteredElementCollectorEx.cs" />
     <Compile Include="Filter\Selection\BeamSelectionFilter.cs" />
+    <Compile Include="Filter\Selection\ColumnSelectionFilter.cs" />
     <Compile Include="Filter\Selection\GridSelectionFilter.cs" />
+    <Compile Include="Filter\Selection\WallSelectionFilter.cs" />
+    <Compile Include="Interface\AxisPointsComparer.cs" />
     <Compile Include="Interface\SymbolNameComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\FamilyUtil.cs" />
     <Compile Include="Util\GlobalUtil.cs" />
     <Compile Include="Util\JoinManager.cs" />
+    <Compile Include="Util\JoinOption.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -9,25 +9,37 @@ namespace ModelingTool.Util
 {
     static class JoinManager
     {
-        public static void OfBeam(Document doc, FamilyInstance beam, IList<Element> inclusion)
+        public static void OfBeam(Document doc, FamilyInstance beam, IList<Element> inclusion, JoinOption option)
         {
             foreach (Element elem in inclusion)
             {
                 if (IsBeam(elem))
                 {
-                    Join(doc, beam, elem);
+                    if (option.JoinByBeam)
+                        Join(doc, elem, beam);
+                    else
+                        Join(doc, beam, elem);
                 }
                 else if (IsWall(elem))
                 {
-                    Join(doc, elem, beam);
+                    if (option.JoinByWall)
+                        Join(doc, elem, beam);
+                    else
+                        Join(doc, beam, elem);
                 }
                 else if (IsFloor(elem))
                 {
-                    Join(doc, beam, elem);
+                    if (option.JoinByFloor)
+                        Join(doc, elem, beam);
+                    else
+                        Join(doc, beam, elem);
                 }
                 else if (IsColumn(elem))
                 {
-                    Join(doc, elem, beam);
+                    if (option.JoinByColumn)
+                        Join(doc, elem, beam);
+                    else
+                        Join(doc, beam, elem);
                 }
             }
         }

@@ -22,6 +22,7 @@ namespace ModelingTool.Application
                 ribbonPanel = application.CreateRibbonPanel("梁建模");
             ribbonPanel.AddItem(new PushButtonData("QuickCreation", "\n\n布置\n梁", typeof(Application).Assembly.Location, typeof(Beam.QuickCreation.Command).FullName));
             ribbonPanel.AddItem(new PushButtonData("BeamUnion", "\n\n合并\n梁", typeof(Application).Assembly.Location, typeof(Beam.BeamUnion.Command).FullName));
+            ribbonPanel.AddItem(new PushButtonData("CutBeam", "\n\n拆分\n梁", typeof(Application).Assembly.Location, typeof(Beam.CutBeam.Command).FullName));
             ribbonPanel.AddItem(new PushButtonData("ChangeJoinOrder", "\n\n主梁\n切次梁", typeof(Application).Assembly.Location, typeof(Beam.ChangeJoinOrder.Command).FullName));
             ribbonPanel.AddItem(new PushButtonData("JoinEnd", "\n\n处理\n梁连接", typeof(Application).Assembly.Location, typeof(Beam.JoinEnd.Command).FullName));
             ribbonPanel.AddItem(new PushButtonData("LengthAdjustment", "\n\n批量调整\n梁端点", typeof(Application).Assembly.Location, typeof(Beam.LengthAdjustment.Command).FullName));

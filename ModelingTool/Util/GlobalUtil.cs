@@ -41,6 +41,52 @@ namespace ModelingTool.Util
             return result;
         }
 
+        public static bool Collineation(Line line1, Line line2)
+        {
+            XYZ compare = line1.Direction;
+            XYZ tmpVector1 = (line1.GetEndPoint(0) - line2.GetEndPoint(0)).Normalize();
+            XYZ tmpVector2 = (line1.GetEndPoint(0) - line2.GetEndPoint(1)).Normalize();
+            XYZ tmpVector3 = (line1.GetEndPoint(1) - line2.GetEndPoint(0)).Normalize();
+            XYZ tmpVector4 = (line1.GetEndPoint(1) - line2.GetEndPoint(1)).Normalize();
+
+            int passCount = 0;
+            passCount = tmpVector1.IsAlmostEqualTo(compare) || tmpVector1.IsAlmostEqualTo(-compare) ? passCount + 1 : passCount;
+            passCount = tmpVector2.IsAlmostEqualTo(compare) || tmpVector2.IsAlmostEqualTo(-compare) ? passCount + 1 : passCount;
+            passCount = tmpVector3.IsAlmostEqualTo(compare) || tmpVector3.IsAlmostEqualTo(-compare) ? passCount + 1 : passCount;
+            passCount = tmpVector4.IsAlmostEqualTo(compare) || tmpVector4.IsAlmostEqualTo(-compare) ? passCount + 1 : passCount;
+            return passCount >= 3;
+        }
+
+        public static bool IsPointOverLine(Line line, XYZ point)
+        {
+            XYZ start = line.GetEndPoint(0);
+            XYZ end = line.GetEndPoint(1);
+            return line.Direction.DotProduct((point - start).Normalize()) * line.Direction.DotProduct((point - end).Normalize()) < 0;
+        }
+
+        public static Line GetBeamCenterLine(FamilyInstance beam)
+        {
+            Line RealLine = beam.ToLine();
+            Transform transform = Transform.Identity;
+            double height, width;
+            GetBeamDimension(beam, out height, out width);
+            switch (beam.get_Parameter(BuiltInParameter.Y_JUSTIFICATION).AsValueString())
+            {
+                case "原点":
+                case "中心线":
+                    break;
+                case "左":
+                    XYZ rightMove = new XYZ(RealLine.Direction.Y, -RealLine.Direction.X, 0);
+                    transform = Transform.CreateTranslation(rightMove * width * 0.5);
+                    break;
+                case "右":
+                    XYZ leftMove = new XYZ(-RealLine.Direction.Y, RealLine.Direction.X, 0);
+                    transform = Transform.CreateTranslation(leftMove * width * 0.5);
+                    break;
+            }
+            return RealLine.CreateTransformed(transform) as Line;
+        }
+
         public static void GetBeamDimension(Element beam, out double height, out double width)
         {
             height = 0.0;
@@ -141,6 +187,16 @@ namespace ModelingTool.Util
         public static Line ToLine(this FamilyInstance beam)
         {
             return (beam.Location as LocationCurve).Curve as Line;
+        }
+
+        public static Line ToLine(this Wall wall)
+        {
+            return (wall.Location as LocationCurve).Curve as Line;
+        }
+
+        public static XYZ ToPoint(this FamilyInstance column)
+        {
+            return (column.Location as LocationPoint).Point;
         }
     }
 }

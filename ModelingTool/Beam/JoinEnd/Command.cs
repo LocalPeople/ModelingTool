@@ -89,23 +89,21 @@ namespace ModelingTool.Beam.JoinEnd
             switch (action)
             {
                 case JoinAction.Start:
-                    try
+                    if (StructuralFramingUtils.IsJoinAllowedAtEnd(beam, 0))
                     {
-                        StructuralFramingUtils.GetEndReference(beam, 0);
                         StructuralFramingUtils.DisallowJoinAtEnd(beam, 0);
                     }
-                    catch (ArgumentsInconsistentException)
+                    else
                     {
                         StructuralFramingUtils.AllowJoinAtEnd(beam, 0);
                     }
                     break;
                 case JoinAction.End:
-                    try
+                    if (StructuralFramingUtils.IsJoinAllowedAtEnd(beam, 1))
                     {
-                        StructuralFramingUtils.GetEndReference(beam, 1);
                         StructuralFramingUtils.DisallowJoinAtEnd(beam, 1);
                     }
-                    catch (ArgumentsInconsistentException)
+                    else
                     {
                         StructuralFramingUtils.AllowJoinAtEnd(beam, 1);
                     }
