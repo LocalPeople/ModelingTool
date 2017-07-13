@@ -35,7 +35,7 @@ namespace ModelingTool.Util
             FamilySymbol newSymbol = symbol.Duplicate(name) as FamilySymbol;
             foreach (var pair in geometry)
             {
-                Parameter param = symbol.LookupParameter(pair.Key);
+                Parameter param = newSymbol.LookupParameter(pair.Key);
                 switch (param.StorageType)
                 {
                     case StorageType.Integer:

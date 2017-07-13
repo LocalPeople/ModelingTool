@@ -9,54 +9,39 @@ namespace ModelingTool.Util
 {
     static class JoinManager
     {
-        public static void OfBeam(Document doc, FamilyInstance beam, IList<Element> inclusion, JoinOption option)
+        public static void CollectorJoin(Document doc, Element element, IList<Element> inclusion, JoinOption option)
         {
-            foreach (Element elem in inclusion)
+            foreach (Element other in inclusion)
             {
-                if (IsBeam(elem))
+                if (IsBeam(other))
                 {
                     if (option.JoinByBeam)
-                        Join(doc, elem, beam);
+                        Join(doc, other, element);
                     else
-                        Join(doc, beam, elem);
+                        Join(doc, element, other);
                 }
-                else if (IsWall(elem))
+                else if (IsWall(other))
                 {
                     if (option.JoinByWall)
-                        Join(doc, elem, beam);
+                        Join(doc, other, element);
                     else
-                        Join(doc, beam, elem);
+                        Join(doc, element, other);
                 }
-                else if (IsFloor(elem))
+                else if (IsFloor(other))
                 {
                     if (option.JoinByFloor)
-                        Join(doc, elem, beam);
+                        Join(doc, other, element);
                     else
-                        Join(doc, beam, elem);
+                        Join(doc, element, other);
                 }
-                else if (IsColumn(elem))
+                else if (IsColumn(other))
                 {
                     if (option.JoinByColumn)
-                        Join(doc, elem, beam);
+                        Join(doc, other, element);
                     else
-                        Join(doc, beam, elem);
+                        Join(doc, element, other);
                 }
             }
-        }
-
-        public static void OfWall(Document doc, Wall wall, List<Element> exclusion)
-        {
-
-        }
-
-        public static void OfColumn(Document doc, FamilyInstance column, List<Element> exclusion)
-        {
-
-        }
-
-        public static void OfFloor(Document doc, Floor floor, List<Element> exclusion)
-        {
-
         }
 
         public static void Join(Document doc, Element first, Element second)

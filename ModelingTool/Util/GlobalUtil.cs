@@ -186,7 +186,20 @@ namespace ModelingTool.Util
 
         public static Line ToLine(this FamilyInstance beam)
         {
-            return (beam.Location as LocationCurve).Curve as Line;
+            return beam.ToLine(false);
+        }
+
+        /// <summary>
+        /// 解决梁齐板相交运算小数位精度误差的拓展方法
+        /// </summary>
+        public static Line ToLine(this FamilyInstance beam, bool isRound)
+        {
+            Line line = (beam.Location as LocationCurve).Curve as Line;
+            XYZ start = line.GetEndPoint(0);
+            XYZ end = line.GetEndPoint(1);
+            return isRound ?
+                Line.CreateBound(new XYZ(Math.Round(start.X, 4), Math.Round(start.Y, 4), Math.Round(start.Z, 4)), new XYZ(Math.Round(end.X, 4), Math.Round(end.Y, 4), Math.Round(end.Z, 4))) :
+                line;
         }
 
         public static Line ToLine(this Wall wall)

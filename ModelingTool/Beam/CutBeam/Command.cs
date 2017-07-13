@@ -45,7 +45,7 @@ namespace ModelingTool.Beam.CutBeam
                             newBeam.get_Parameter(BuiltInParameter.STRUCTURAL_MATERIAL_PARAM).Set(data.MaterialId);
                             GlobalUtil.SetSharedParameters(newBeam, data.SharedParameters);
                             IList<Element> inclusion = GlobalUtil.IncludeTest(doc, newBeam);
-                            JoinManager.OfBeam(doc, newBeam, inclusion, new JoinOption() { JoinByBeam = true, JoinByWall = true, JoinByColumn = true, JoinByFloor = false });
+                            JoinManager.CollectorJoin(doc, newBeam, inclusion, new JoinOption() { JoinByBeam = true, JoinByWall = true, JoinByColumn = true, JoinByFloor = false });
                         }
                         trans.Commit();
                     }

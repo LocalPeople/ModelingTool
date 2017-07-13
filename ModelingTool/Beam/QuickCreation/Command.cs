@@ -85,7 +85,7 @@ namespace ModelingTool.Beam.QuickCreation
             beam.get_Parameter(BuiltInParameter.STRUCTURAL_BEAM_END0_ELEVATION).Set(0.0);
             beam.get_Parameter(BuiltInParameter.STRUCTURAL_BEAM_END1_ELEVATION).Set(0.0);
             IList<Element> inclusion = GlobalUtil.IncludeTest(doc, beam);
-            JoinManager.OfBeam(doc, beam, inclusion, new JoinOption() { JoinByBeam = false, JoinByWall = true, JoinByColumn = true, JoinByFloor = false });
+            JoinManager.CollectorJoin(doc, beam, inclusion, new JoinOption() { JoinByBeam = false, JoinByWall = true, JoinByColumn = true, JoinByFloor = false });
         }
 
         private void CreateBeamByTwoPoint(Document doc, XYZ[] endPoints, Level levelAt, FamilySymbol beamFamilySymbol)
@@ -94,7 +94,7 @@ namespace ModelingTool.Beam.QuickCreation
                 beamFamilySymbol.Activate();
             FamilyInstance beam = doc.Create.NewFamilyInstance(Line.CreateBound(endPoints[0], endPoints[1]), beamFamilySymbol, levelAt, Autodesk.Revit.DB.Structure.StructuralType.Beam);
             IList<Element> inclusion = GlobalUtil.IncludeTest(doc, beam);
-            JoinManager.OfBeam(doc, beam, inclusion, new JoinOption() { JoinByBeam = false, JoinByWall = true, JoinByColumn = true, JoinByFloor = false });
+            JoinManager.CollectorJoin(doc, beam, inclusion, new JoinOption() { JoinByBeam = false, JoinByWall = true, JoinByColumn = true, JoinByFloor = false });
         }
     }
 }

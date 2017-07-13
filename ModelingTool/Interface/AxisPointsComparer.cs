@@ -13,13 +13,13 @@ namespace ModelingTool.Interface
 
         public AxisPointsComparer(XYZ axis)
         {
-            this.axis = axis;
+            this.axis = new XYZ(axis.X, axis.Y, 0);
         }
 
         public int Compare(XYZ x, XYZ y)
         {
-            XYZ xDirection = x.Normalize();
-            XYZ yDirection = y.Normalize();
+            XYZ xDirection = new XYZ(x.X, x.Y, 0).Normalize();
+            XYZ yDirection = new XYZ(y.X, y.Y, 0).Normalize();
             return xDirection.DotProduct(axis).CompareTo(yDirection.DotProduct(axis));
         }
     }

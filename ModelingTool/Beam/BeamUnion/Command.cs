@@ -61,7 +61,7 @@ namespace ModelingTool.Beam.BeamUnion
             newBeam.get_Parameter(BuiltInParameter.STRUCTURAL_MATERIAL_PARAM).Set(data.MaterialId);
             GlobalUtil.SetSharedParameters(newBeam, data.SharedParameters);
             IList<Element> inclusion = GlobalUtil.IncludeTest(doc, newBeam);
-            JoinManager.OfBeam(doc, newBeam, inclusion, new JoinOption() { JoinByBeam = false, JoinByWall = true, JoinByColumn = true, JoinByFloor = false });
+            JoinManager.CollectorJoin(doc, newBeam, inclusion, new JoinOption() { JoinByBeam = false, JoinByWall = true, JoinByColumn = true, JoinByFloor = false });
         }
 
         private BeamUnionData GetUnionData(Document doc, List<FamilyInstance> beams)
